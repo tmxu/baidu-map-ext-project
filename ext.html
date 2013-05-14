@@ -1,0 +1,1011 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<style type="text/css">
+body,html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+
+#allmap {
+	margin-right: 300px;
+	height: 100%;
+	overflow: hidden;
+}
+
+#result {
+	border-left: 1px dotted #999;
+	height: 100%;
+	width: 0px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-size: 12px;
+}
+
+#chart {
+	overflow: auto;
+	height: 100%;
+	width: 300px;
+	position: absolute;
+	top: 0px;
+	right: 0px; 
+	//font-size: 50px; 
+	//background-color: yellow;
+}
+
+dl,dt,dd,ul,li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+p {
+	font-size: 12px;
+}
+
+dt {
+	font-size: 14px;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	border-bottom: 1px dotted #000;
+	padding: 5px 0 5px 5px;
+	margin: 5px 0;
+}
+
+dd {
+	padding: 5px 0 0 5px;
+}
+
+li {
+	line-height: 28px;
+}
+</style>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=1.5&ak=C09c918bbe0b24d988da51a15644d98a"></script>
+<link rel="stylesheet" type="text/css"
+	href="http://api.map.baidu.com/res/15/bmap.css">
+<script type="text/javascript"
+	src="http://api.map.baidu.com/getscript?v=1.5&ak=C09c918bbe0b24d988da51a15644d98a"></script>
+<!--加载鼠标绘制工具-->
+<!--加载鼠标绘制工具-->
+<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+<!--加载检索信息窗口-->
+<script type="text/javascript"
+	src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js?v=1.5&amp;ak=C09c918bbe0b24d988da51a15644d98a"></script>
+<link rel="stylesheet"
+	href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css">
+	
+	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInRectangle/1.4/src/SearchInRectangle_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInRectangle/1.4/src/SearchInRectangle_min.css" />
+
+<!--加载实用库工具-->
+<script type="text/javascript" src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.css">
+<!-- Ext Chart 库 -->
+<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css">
+    <script type="text/javascript" src="ext/bootstrap.js"></script>
+
+<title>Baidu Map App</title>
+</head>
+<body>
+	<div id="allmap" style="overflow:hidden;zoom:1;position:relative;">
+		<div id="map"
+			style="height: 100%; -webkit-transition: all 0.5s ease-in-out; overflow: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left;">
+			<div
+				style="overflow: visible; position: absolute; z-index: 0; left: 0px; top: 0px; cursor: url(http://api.map.baidu.com/images/openhand.cur) 8 8, default;">
+				<div class="BMap_mask"
+					style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; -webkit-user-select: none; width: 793px; height: 514px;"></div>
+				<div
+					style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200;">
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 800;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 700;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 600;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 500;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 400;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 300;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 201;"></div>
+					<div
+						style="position: absolute; height: 0px; width: 0px; left: 0px; top: 0px; z-index: 200;"></div>
+				</div>
+				<div
+					style="position: absolute; overflow: visible; top: 0px; left: 0px; z-index: 1;">
+					<div
+						style="position: absolute; overflow: visible; z-index: -100; left: 396px; top: 257px;">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 384px; top: -356px; max-width: none; opacity: 1;"
+							src="http://q7.baidu.com/it/u=x=1582;y=592;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -384px; top: -100px; max-width: none; opacity: 1;"
+							src="http://q3.baidu.com/it/u=x=1579;y=591;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -640px; top: -100px; max-width: none; opacity: 1;"
+							src="http://q2.baidu.com/it/u=x=1578;y=591;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 384px; top: -100px; max-width: none; opacity: 1;"
+							src="http://q6.baidu.com/it/u=x=1582;y=591;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -640px; top: -356px; max-width: none; opacity: 1;"
+							src="http://q3.baidu.com/it/u=x=1578;y=592;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 128px; top: -356px; max-width: none; opacity: 1;"
+							src="http://q6.baidu.com/it/u=x=1581;y=592;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 128px; top: -100px; max-width: none; opacity: 1;"
+							src="http://q5.baidu.com/it/u=x=1581;y=591;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -384px; top: -356px; max-width: none; opacity: 1;"
+							src="http://q4.baidu.com/it/u=x=1579;y=592;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -128px; top: -100px; max-width: none; opacity: 1;"
+							src="http://q4.baidu.com/it/u=x=1580;y=591;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -128px; top: 156px; max-width: none; opacity: 1;"
+							src="http://q3.baidu.com/it/u=x=1580;y=590;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -384px; top: 156px; max-width: none; opacity: 1;"
+							src="http://q2.baidu.com/it/u=x=1579;y=590;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 128px; top: 156px; max-width: none; opacity: 1;"
+							src="http://q4.baidu.com/it/u=x=1581;y=590;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -640px; top: 156px; max-width: none; opacity: 1;"
+							src="http://q1.baidu.com/it/u=x=1578;y=590;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: 384px; top: 156px; max-width: none; opacity: 1;"
+							src="http://q5.baidu.com/it/u=x=1582;y=590;z=13;v=015;type=web&amp;fm=44">
+						<img
+							style="position: absolute; border: none; width: 256px; height: 256px; left: -128px; top: -356px; max-width: none; opacity: 1;"
+							src="http://q5.baidu.com/it/u=x=1580;y=592;z=13;v=015;type=web&amp;fm=44">
+					</div>
+				</div>
+				<div
+					style="position: absolute; overflow: visible; top: 0px; left: 0px; z-index: 2;"></div>
+			</div>
+			<div class="BMapLib_Drawing BMap_noprint anchorTR"
+				style="-webkit-transform: scale(0.8); margin-left: -39px; margin-top: -5px; position: absolute; z-index: 10; -webkit-text-size-adjust: none; bottom: auto; right: 5px; top: 5px; left: auto;">
+				<div class="BMapLib_Drawing_panel">
+					<a class="BMapLib_box BMapLib_hander" drawingtype="hander"
+						href="javascript:void(0)" title="拖动地图" onFocus="this.blur()"></a>
+						<a class="BMapLib_box BMapLib_marker" drawingtype="marker"
+						href="javascript:void(0)" title="画点" onFocus="this.blur()"></a><a
+						class="BMapLib_box BMapLib_circle" drawingtype="circle"
+						href="javascript:void(0)" title="画圆" onFocus="this.blur()"></a> <a
+						class="BMapLib_box BMapLib_polyline" drawingtype="polyline"
+						href="javascript:void(0)" title="画折线" onFocus="this.blur()"></a><a
+						class="BMapLib_box BMapLib_polygon" drawingtype="polygon"
+						href="javascript:void(0)" title="画多边形" onFocus="this.blur()"></a><a
+						class="BMapLib_box BMapLib_rectangle BMapLib_last"
+						drawingtype="rectangle" href="javascript:void(0)" title="画矩形"
+						onfocus="this.blur()"></a>
+				</div>
+			</div>
+			<div
+				style="height: 32px; position: absolute; z-index: 10; -webkit-text-size-adjust: none; bottom: 0px; right: auto; top: auto; left: 1px;"
+				class=" anchorBL">
+				<a title="到百度地图查看此区域" target="_blank"
+					href="http://map.baidu.com/?sr=1" style="outline: none;"><img
+					style="border:none;width:77px;height:32px"
+					src="http://api.map.baidu.com/images/copyright_logo.png"> </a>
+			</div>
+			<div id="zoomer"
+				style="position:absolute;z-index:0;top:0px;left:0px;overflow:hidden;visibility:hidden;cursor:url(http://api.map.baidu.com/images/openhand.cur) 8 8,default">
+				<div class="BMap_zoomer" style="top:0;left:0;"></div>
+				<div class="BMap_zoomer" style="top:0;right:0;"></div>
+				<div class="BMap_zoomer" style="bottom:0;left:0;"></div>
+				<div class="BMap_zoomer" style="bottom:0;right:0;"></div>
+			</div>
+			<div unselectable="on" class=" BMap_cpyCtrl BMap_noprint anchorBL"
+				style="cursor: default; white-space: nowrap; color: black; background-image: none; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; line-height: 15px; font-family: arial, sans-serif; bottom: 2px; right: auto; top: auto; left: 81px; position: absolute; z-index: 10; -webkit-text-size-adjust: none; background-position: initial initial; background-repeat: initial initial;">
+				<span _cid="1" style="display: inline;"><span
+					style="font-size:11px">© 2013 Baidu&nbsp;- Data © <a
+						target="_blank" href="http://www.navinfo.com/">NavInfo</a> &amp; <a
+						target="_blank" href="http://www.cennavi.com.cn/">CenNavi</a>
+						&amp; <a target="_blank" href="http://www.365ditu.com/">道道通</a> </span> </span>
+			</div>
+		</div>
+		
+    <div id="showPanelBtn" style="position:absolute;font-size:14px;top:50%;margin-top:-95px;right:5px;width:25px;padding:10px 10px;color:#999;cursor:pointer;text-align:center;height:170px;background:rgba(255,255,255,0.9);-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;font-family:'微软雅黑';font-weight:bold;color:blue">隐藏检索结果面板<br>&lt;</div>
+		<div id="panelWrap"
+			style="width:0px;position:relative;top:0px;right:0px;height:100%;overflow:auto;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;">
+			<div id="showOverlayInfo"style="width:20px;height:200px;margin:-100px 0 0 -10px;color:#999;position:absolute;opacity:0.5;top:50%;left:50%;">此处用于展示覆盖物信息</div>
+			<div id="panel" style="position:absolute;"></div>
+		</div>
+	</div>
+
+	<div id="result" style="overflow:hidden;">
+		<dl>
+			<dt>绘制工具功能</dt>
+			<ul>
+				<li><label><input type="radio" name="openClose1"
+						onclick="drawingManager.open()">打开</label> <label><input
+						type="radio" name="openClose1" onClick="drawingManager.close()"
+						checked="checked">关闭</label></li>
+			</ul>
+
+			<dt>是否进行线或面积的计算(单位米)</dt>
+			<ul>
+				<li><label><input type="radio" name="openClose"
+						onclick="drawingManager.enableCalculate()">打开</label> <label><input
+						type="radio" name="openClose"
+						onclick="drawingManager.disableCalculate()" checked="checked">关闭</label>
+				</li>
+			</ul>
+
+			<dt>绘制功能</dt>
+			<dd>
+				<ul>
+					<li><label>
+					<input type="radio" name="drawmode"onclick="drawingManager.setDrawingMode(BMAP_DRAWING_MARKER)"checked="checked">画点</label> <input type="checkbox"
+						id="isInfowindow"> 是否带信息窗口</li>
+					<li><label><input type="radio" name="drawmode"
+							onclick="drawingManager.setDrawingMode(BMAP_DRAWING_CIRCLE)">画圆</label>
+					</li>
+					<li><label><input type="radio" name="drawmode"
+							onclick="drawingManager.setDrawingMode(BMAP_DRAWING_POLYLINE)">画线</label>
+					</li>
+					<li><label><input type="radio" name="drawmode"
+							onclick="drawingManager.setDrawingMode(BMAP_DRAWING_POLYGON)">画多边形</label>
+					</li>
+					<li><label><input type="radio" name="drawmode"
+							onclick="drawingManager.setDrawingMode(BMAP_DRAWING_RECTANGLE)">画矩形</label>
+					</li>
+				</ul>
+			</dd>
+			<dt>覆盖物操作</dt>
+			<dd>
+				<ul>
+					<li>
+						<input type="button" value="获取绘制的覆盖物个数"onclick="alert(overlays.length)"> 
+						<input type="button"value="清除所有覆盖物" onClick="clearAll()"> 
+						<input type="button"value="获取最后一个覆盖物信息" id="getLastOverLay">
+					</li>
+					
+				</ul>
+			</dd>
+		</dl>
+
+	</div>
+	<div id="chart"></div>
+
+	<script type="text/javascript">
+		//extjs库	
+		Ext.require('Ext.data.Store');
+		Ext.require('Ext.data.*');
+		Ext.require('Ext.Button');
+		Ext.require([ 'Ext.Window', 'Ext.layout.container.Fit','Ext.fx.target.Sprite', 'Ext.window.MessageBox' ]);
+
+		
+				Ext.onReady(function() {
+
+					var map = new BMap.Map('map');
+					var poi = new BMap.Point(117.307852, 30.057031);
+					map.centerAndZoom('北京', 13);
+					map.enableScrollWheelZoom();
+					map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+					map.addControl(new BMap.NavigationControl({
+						anchor : BMAP_ANCHOR_TOP_LEFT,
+						type : BMAP_NAVIGATION_CONTROL_SMALL
+					}));
+					//map.disableDragging();
+					
+					
+					
+					
+							
+
+					$("getLastOverLay").onclick = function() {
+						if (overlays.length) {
+							alert(overlays[overlays.length - 1]);
+						} else {
+							alert("没有覆盖物");
+						}
+					}
+
+					//信息窗口的内容定义
+					var content = '<div style="margin:0;line-height:20px;padding:2px;">'
+							+ '地址：北京市海淀区上地十街10号<br/>电话：(010)59928888<br/>简介：百度大厦位于北京市海淀区西二旗地铁站附近，为百度公司综合研发及办公总部。'
+							+ '</div>';
+
+					//创建带信息窗口的poi点,百度演示例子中附带的，可以直接忽略
+					var searchInfoWindow = new BMapLib.SearchInfoWindow(map,
+							content, {
+								title : "百度大厦", //标题
+								width : 290, //宽度
+								height : 105, //高度
+								panel : "panel", //检索结果面板
+								enableAutoPan : true, //自动平移
+								searchTypes : [ BMAPLIB_TAB_SEARCH, //周边检索
+								BMAPLIB_TAB_TO_HERE, //到这里去
+								BMAPLIB_TAB_FROM_HERE //从这里出发
+								]
+							});
+						//行政区域高亮
+					function getBoundary() {
+						var bdary = new BMap.Boundary();
+						bdary.get("河北 ", function(rs) { //获取行政区域
+							map.clearOverlays(); //清除地图覆盖物       
+							var count = rs.boundaries.length; //行政区域的点有多少个
+							for ( var i = 0; i < count; i++) {
+								var ply = new BMap.Polygon(rs.boundaries[i], {
+									strokeWeight : 2,
+									strokeColor : "#ff0000"
+								}); //建立多边形覆盖物
+								map.addOverlay(ply); //添加覆盖物
+								//map.setViewport(ply.getPath());    //调整视野         
+							}
+						});
+					}
+					var overlays = [];
+					var gc = new BMap.Geocoder();
+					//回调获得覆盖物信息
+					var overlaycomplete = function(e) {
+						overlays.push(e.overlay);
+						//简单的标注
+						if (e.drawingMode == BMAP_DRAWING_MARKER) {
+							
+							//getBoundary();
+							gc.getLocation(e.overlay.getPosition(),
+									function(rs) {
+										var addComp = rs.addressComponents;
+										var here = addComp.province + ", "
+												+ addComp.city + ", "
+												+ addComp.district + ", "
+												+ addComp.street + ", "
+												+ addComp.streetNumber;
+										
+										var opts = {
+											width : 50, // 信息窗口宽度
+											height : 20, // 信息窗口高度
+											title : "这里是" // 信息窗口标题
+										};
+										var infoWindow = new BMap.InfoWindow(
+												here, opts); // 创建信息窗口对象
+										map.openInfoWindow(infoWindow,
+												e.overlay.getPosition()); //开启信息窗口
+									});
+							//map.clearOverlays(); 
+							
+
+						}
+						//画圆
+						if (e.drawingMode == BMAP_DRAWING_CIRCLE) {
+							
+							/* var center = new BMap.Point(e.overlay.getCenter().lng, e.overlay
+											.getCenter().lat);
+							var circle = e.overlay;
+							//map.addOverlay(circle);
+							alert(e.overlay.getCenter().lng); */
+							//alert(e.overlay.getCenter().lng+", "+e.overlay.getCenter().lat);
+							
+		var circle = new BMap.Circle(e.overlay.getCenter(),e.overlay.getRadius(), 
+		                            {
+										fillColor : "blue",
+										strokeWeight : 1,
+										fillOpacity : 0.3,
+										strokeOpacity : 0.3
+									});
+							//map.addOverlay(circle);
+							var local = new BMap.LocalSearch(map, {
+								renderOptions : {
+									map : map,
+									autoViewport : false
+								}
+							});
+							var bounds = getSquareBounds(circle.getCenter(),circle.getRadius());
+							local.searchInBounds("学校", bounds);
+
+							/**
+							 * 得到圆的内接正方形bounds
+							 * @param {Point} centerPoi 圆形范围的圆心
+							 * @param {Number} r 圆形范围的半径
+							 * @return 无返回值   
+							 */
+							function getSquareBounds(centerPoi, r) {
+								var a = Math.sqrt(2) * r; //正方形边长
+
+								mPoi = getMecator(centerPoi);
+								var x0 = mPoi.x, y0 = mPoi.y;
+
+								var x1 = x0 + a / 2, y1 = y0 + a / 2;//东北点
+								var x2 = x0 - a / 2, y2 = y0 - a / 2;//西南点
+
+								var ne = getPoi(new BMap.Pixel(x1, y1)), sw = getPoi(new BMap.Pixel(
+										x2, y2));
+								return new BMap.Bounds(sw, ne);
+
+							}
+							//根据球面坐标获得平面坐标。
+							function getMecator(poi) {
+								return map.getMapType().getProjection().lngLatToPoint(poi);
+							}
+							//根据平面坐标获得球面坐标。
+							function getPoi(mecator) {
+								return map.getMapType().getProjection()
+										.pointToLngLat(mecator);
+							}
+
+						}
+						//画折线
+						if(e.drawingMode == BMAP_DRAWING_POLYLINE){
+						window.openInfoWinFuns = null;
+	var options = {
+  	onSearchComplete: function(results){
+    // 判断状态是否正确
+    if (local.getStatus() == BMAP_STATUS_SUCCESS){
+		console.info("sucsess");
+        var polygon = new BMap.Polygon(e.overlay.getPath(),  
+ 		{strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5}  
+		);  
+		//map.addOverlay(polyline);  
+
+        openInfoWinFuns = [];
+        for (var i = 0; i < results.getCurrentNumPois(); i ++){
+			console.info(results.getPoi(i).point.lng);
+			if(BMapLib.GeoUtils.isPointInPolygon(results.getPoi(i).point, polygon)){
+				console.info("in polygon");
+				 var marker = addMarker(results.getPoi(i).point,i);
+           		var openInfoWinFun = addInfoWindow(marker,results.getPoi(i),i);
+            	openInfoWinFuns.push(openInfoWinFun);
+            // 默认打开第一标注的信息窗口
+            var selected = "";
+            if(i == 0){
+                selected = "background-color:#f0f0f0;";
+                //openInfoWinFun();
+				}
+				}
+        }
+    }
+  }
+};
+
+// 添加标注
+function addMarker(point, index){
+  var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+    offset: new BMap.Size(10, 25),
+    imageOffset: new BMap.Size(0, 0 - index * 25)
+  });
+  var marker = new BMap.Marker(point, {icon: myIcon});
+  map.addOverlay(marker);
+  return marker;
+}
+// 添加信息窗口
+function addInfoWindow(marker,poi,index){
+    var maxLen = 10;
+    var name = null;
+    if(poi.type == BMAP_POI_TYPE_NORMAL){
+        name = "地址：  "
+    }else if(poi.type == BMAP_POI_TYPE_BUSSTOP){
+        name = "公交：  "
+    }else if(poi.type == BMAP_POI_TYPE_SUBSTOP){
+        name = "地铁：  "
+    }
+    // infowindow的标题
+    var infoWindowTitle = '<div style="font-weight:bold;color:#CE5521;font-size:14px">'+poi.title+'</div>';
+    // infowindow的显示信息
+    var infoWindowHtml = [];
+    infoWindowHtml.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');
+    infoWindowHtml.push('<tr>');
+    infoWindowHtml.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">' + name + '</td>');
+    infoWindowHtml.push('<td style="vertical-align:top;line-height:16px">' + poi.address + ' </td>');
+    infoWindowHtml.push('</tr>');
+    infoWindowHtml.push('</tbody></table>');
+    var infoWindow = new BMap.InfoWindow(infoWindowHtml.join(""),{title:infoWindowTitle,width:200}); 
+    var openInfoWinFun = function(){
+        marker.openInfoWindow(infoWindow);
+        for(var cnt = 0; cnt < maxLen; cnt++){
+            if(!document.getElementById("list" + cnt)){continue;}
+            if(cnt == index){
+                document.getElementById("list" + cnt).style.backgroundColor = "#f0f0f0";
+            }else{
+                document.getElementById("list" + cnt).style.backgroundColor = "#fff";
+            }
+        }
+    }
+    marker.addEventListener("click", openInfoWinFun);
+    return openInfoWinFun;
+}
+			var bounds = e.overlay.getBounds();
+							
+							console.info( bounds.getSouthWest().lng );
+							console.info(e.overlay.getPath()[0].lng);
+							var local = new BMap.LocalSearch(map, options);
+								
+						local.searchInBounds("银行", bounds,options);
+						}
+						//polygon
+						if( e.drawingMode == BMAP_DRAWING_POLYGON){
+						
+						window.openInfoWinFuns = null;
+	var options = {
+  	onSearchComplete: function(results){
+    // 判断状态是否正确
+    if (local.getStatus() == BMAP_STATUS_SUCCESS){
+		console.info("sucsess");
+        
+        openInfoWinFuns = [];
+        for (var i = 0; i < results.getCurrentNumPois(); i ++){
+			console.info(results.getPoi(i).point.lng);
+			if(BMapLib.GeoUtils.isPointInPolygon(results.getPoi(i).point, e.overlay)){
+				console.info("in polygon");
+				 var marker = addMarker(results.getPoi(i).point,i);
+           		var openInfoWinFun = addInfoWindow(marker,results.getPoi(i),i);
+            	openInfoWinFuns.push(openInfoWinFun);
+            // 默认打开第一标注的信息窗口
+            var selected = "";
+            if(i == 0){
+                selected = "background-color:#f0f0f0;";
+                //openInfoWinFun();
+				}
+				}
+        }
+    }
+  }
+};
+
+// 添加标注
+function addMarker(point, index){
+  var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+    offset: new BMap.Size(10, 25),
+    imageOffset: new BMap.Size(0, 0 - index * 25)
+  });
+  var marker = new BMap.Marker(point, {icon: myIcon});
+  map.addOverlay(marker);
+  return marker;
+}
+// 添加信息窗口
+function addInfoWindow(marker,poi,index){
+    var maxLen = 10;
+    var name = null;
+    if(poi.type == BMAP_POI_TYPE_NORMAL){
+        name = "地址：  "
+    }else if(poi.type == BMAP_POI_TYPE_BUSSTOP){
+        name = "公交：  "
+    }else if(poi.type == BMAP_POI_TYPE_SUBSTOP){
+        name = "地铁：  "
+    }
+    // infowindow的标题
+    var infoWindowTitle = '<div style="font-weight:bold;color:#CE5521;font-size:14px">'+poi.title+'</div>';
+    // infowindow的显示信息
+    var infoWindowHtml = [];
+    infoWindowHtml.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');
+    infoWindowHtml.push('<tr>');
+    infoWindowHtml.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">' + name + '</td>');
+    infoWindowHtml.push('<td style="vertical-align:top;line-height:16px">' + poi.address + ' </td>');
+    infoWindowHtml.push('</tr>');
+    infoWindowHtml.push('</tbody></table>');
+    var infoWindow = new BMap.InfoWindow(infoWindowHtml.join(""),{title:infoWindowTitle,width:200}); 
+    var openInfoWinFun = function(){
+        marker.openInfoWindow(infoWindow);
+        for(var cnt = 0; cnt < maxLen; cnt++){
+            if(!document.getElementById("list" + cnt)){continue;}
+            if(cnt == index){
+                document.getElementById("list" + cnt).style.backgroundColor = "#f0f0f0";
+            }else{
+                document.getElementById("list" + cnt).style.backgroundColor = "#fff";
+            }
+        }
+    }
+    marker.addEventListener("click", openInfoWinFun);
+    return openInfoWinFun;
+}
+			var bounds = e.overlay.getBounds();
+							
+							console.info( bounds.getSouthWest().lng );
+							console.info(e.overlay.getPath()[0].lng);
+							var local = new BMap.LocalSearch(map, options);
+								
+						local.searchInBounds("银行", bounds,options);
+						}
+						if (e.drawingMode == BMAP_DRAWING_RECTANGLE) {
+							
+							
+							var bounds = e.overlay.getBounds();
+							
+							console.info( bounds.getSouthWest().lng );
+							console.info(e.overlay.getPath()[0].lng);
+							var local = new BMap.LocalSearch(map, {
+  												renderOptions:{map: map}
+													});
+								
+									local.searchInBounds("银行", bounds);
+						}
+						
+					};
+
+					var styleOptions = {
+						strokeColor : "red", //边线颜色。
+						fillColor : "red", //填充颜色。当参数为空时，圆形将没有填充效果。
+						strokeWeight : 2, //边线的宽度，以像素为单位。
+						strokeOpacity : 0.8, //边线透明度，取值范围0 - 1。
+						fillOpacity : 0.4, //填充的透明度，取值范围0 - 1。
+						strokeStyle : 'solid' //边线的样式，solid或dashed。
+					};
+					var circle = {
+						strokeColor : "green", //边线颜色。
+						fillColor : "green", //填充颜色。当参数为空时，圆形将没有填充效果。
+						strokeWeight : 2, //边线的宽度，以像素为单位。
+						strokeOpacity : 0.8, //边线透明度，取值范围0 - 1。
+						fillOpacity : 0.4, //填充的透明度，取值范围0 - 1。
+						strokeStyle : 'dashed' //边线的样式，solid或dashed。
+					};
+					var line = {
+						strokeColor : "red", //边线颜色。
+						fillColor : "yellow", //填充颜色。当参数为空时，圆形将没有填充效果。
+						strokeWeight : 3, //边线的宽度，以像素为单位。
+						strokeOpacity : 0.6, //边线透明度，取值范围0 - 1。
+						fillOpacity : 0.4, //填充的透明度，取值范围0 - 1。
+						strokeStyle : 'dashed' //边线的样式，solid或dashed。
+					};
+					
+					//实例化鼠标绘制工具
+					var drawingManager = new BMapLib.DrawingManager(map, {
+						isOpen : false, //是否开启绘制模式
+						enableDrawingTool : true, //是否显示工具栏
+						drawingToolOptions : {
+							anchor : BMAP_ANCHOR_TOP_LEFT, //位置
+							offset : new BMap.Size(65, 5), //偏离值
+							scale : 0.8,//工具栏缩放比例
+						},
+						drawingModes : [ BMAP_DRAWING_CIRCLE ],
+						circleOptions : circle, //圆的样式
+						 polylineOptions : line, //线的样式
+						polygonOptions : line, //多边形的样式
+						rectangleOptions : styleOptions//矩形的样式 
+						});
+
+					//添加鼠标绘制工具监听事件，用于获取绘制结果，在地图上画的圆、多边形、都为overlay
+					drawingManager.addEventListener('overlaycomplete',overlaycomplete);
+					function $(id) {
+						return document.getElementById(id);
+					}
+
+					function clearAll() {
+						for ( var i = 0; i < overlays.length; i++) {
+							map.removeOverlay(overlays[i]);
+						}
+						overlays.length = 0;
+					}
+
+					var isPanelShow = true;
+					//显示结果面板动作
+					$("showPanelBtn").onclick = showPanel;
+					function showPanel(){
+			        if (isPanelShow == false) {
+			            isPanelShow = true;
+			            $("showPanelBtn").style.right = "0px";
+			            $("chart").style.width = "300px";
+			            $("allmap").style.marginRight = "300px";
+			            $("showPanelBtn").innerHTML = "隐藏绘制结果信息<br/>>";
+			        } else {
+			            isPanelShow = false;
+			            $("showPanelBtn").style.right = "0px";
+			            $("chart").style.width = "0px";
+			            $("allmap").style.marginRight = "0px";
+			            $("showPanelBtn").innerHTML = "显示绘制结果信息<br/><";
+			        }
+			    }
+					//below is The data,store,charts and panel of the EXTJS LIB
+					Ext.define('DataPoint', {
+						extend : 'Ext.data.Model',
+						fields : [ 'dataY', 'dataX' ]
+					});
+					var store = Ext.create('Ext.data.Store', {
+						model : 'DataPoint',
+						data : []
+					});
+
+					var tag = false,mouseDown=false,mouseMove=false,mouseUp=false;
+					var  startX=0,startY=0;
+					Ext.create('Ext.chart.Chart', {
+						//renderTo: 'chart',
+						width : 300,
+						height : 300,
+						store : store,
+						axes : [ {
+							title : 'DataY',
+							type : 'Numeric',
+							position : 'left',
+							fields : [ 'dataY' ],
+							minimum : 0,
+							maximum : 100
+						}, {
+							title : 'DataX',
+							type : 'Time',
+							position : 'bottom',
+							fields : [ 'dataX' ],
+							dataXFormat : 'ga'
+						} ],
+						series : [ {
+							type : 'line',
+							xField : 'dataX',
+							yField : 'dataY'
+						} ],
+						theme : 'Green',
+						background: {
+    						//color string
+    					fill: '#ccc'
+							},
+						listeners:{
+		click: function(e,eOptions){
+			console.info('click chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			
+			},
+		mousedown:function(e,eOptions){
+			mouseDown=true;
+			console.info('mouse down chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			startX=e.getXY()[0];
+			startY=e.getXY()[1];
+			},
+		mouseup:function(e,eOptions){
+			console.info('mouse up chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			if(mouseMove){
+				mouseUp=true;
+				var endX=e.getXY()[0];
+				var endY=e.getXY()[1];
+				if(endX>startX&&endY<startY){
+					store.sort('dataY', 'AESC');
+					}
+				if(endX>startX&&endY>startY){
+					store.sort('dataY', 'DESC');
+					}	
+				}
+			},
+		mousemove:function(e,eOptions){
+			if(mouseDown){
+				mouseMove=true;
+				}
+			//console.info('mouse move chart');
+			//console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			},
+		}
+					});
+
+					var chart3 = Ext.create('Ext.chart.Chart', {
+						style : 'background:#ccc',
+						animate : true,
+						shadow : true,
+						store : store,
+						axes : [
+								{
+									type : 'Numeric',
+									position : 'left',
+									fields : [ 'dataY' ],
+									label : {
+										renderer : Ext.util.Format
+												.numberRenderer('0,0')
+									},
+									//title: 'Number of Hits',
+									grid : true,
+									minimum : 0
+								}, {
+									type : 'Category',
+									position : 'bottom',
+									fields : [ 'dataX' ],
+								//title: 'Month of the Year'
+								} ],
+						series : [ {
+							type : 'column',
+							axis : 'left',
+							highlight : true,
+							tips : {
+								trackMouse : true,
+								width : 140,
+								height : 28,
+								renderer : function(storeItem, item) {
+									this.setTitle(storeItem.get('dataX') + ': '
+											+ storeItem.get('dataY'));
+								}
+							},
+							label : {
+								display : 'insideEnd',
+								'text-anchor' : 'middle',
+								field : 'dataY',
+								renderer : Ext.util.Format.numberRenderer('0'),
+								orientation : 'vertical',
+								color : '#333'
+							},
+							xField : 'dataX',
+							yField : 'dataY'
+						} ]
+					});
+					var panel1 = Ext.create('Ext.panel.Panel', {
+						id : 'panel1',
+						title : '柱状图',
+						width : 300,
+						height : 300,
+						collapsible : true,
+
+						//renderTo: Ext.getBody(),
+						renderTo : 'chart',
+						layout : 'fit',
+						items : chart3,
+
+					});
+
+					Ext.create('Ext.panel.Panel', {
+						title : '折线图',
+						width : 300,
+						height : 300,
+						renderTo : 'chart',
+						collapsible : true,
+
+						layout : 'fit',
+						items : [ {
+							xtype : 'chart',
+							store : store,
+							axes : [ {
+								//title: 'Temperature',
+								type : 'Numeric',
+								position : 'left',
+								fields : [ 'dataY' ],
+								minimum : 0,
+								maximum : 100
+							}, {
+								//title: 'Time',
+								type : 'Category',
+								position : 'bottom',
+								fields : [ 'dataX' ],
+							//dateFormat: 'ga'
+							} ],
+
+							series : [ {
+								type : 'line',
+								xField : 'dataX',
+								yField : 'dataY'
+							} ],
+							background: {
+    						//color string
+    					fill: '#ccc'
+							},
+						listeners:{
+		click: function(e,eOptions){
+			console.info('click chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			
+			},
+		mousedown:function(e,eOptions){
+			mouseDown=true;
+			console.info('mouse down chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			startX=e.getXY()[0];
+			startY=e.getXY()[1];
+			},
+		mouseup:function(e,eOptions){
+			console.info('mouse up chart');
+			console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			if(mouseMove){
+				mouseUp=true;
+				var endX=e.getXY()[0];
+				var endY=e.getXY()[1];
+				if(endX>startX&&endY<startY){
+					store.sort('dataY', 'AESC');
+					}
+				if(endX>startX&&endY>startY){
+					store.sort('dataY', 'DESC');
+					}	
+				}
+			},
+		mousemove:function(e,eOptions){
+			if(mouseDown){
+				mouseMove=true;
+				}
+			//console.info('mouse move chart');
+			//console.info('X:%d,Y:%d',e.getXY()[0],e.getXY()[1]);
+			},
+			}
+
+						} ]
+
+					});
+
+					var data2 = [ {
+						dataY : 98,
+						dataX : new Date(2011, 1, 1, 8)
+					}, {
+						dataY : 63,
+						dataX : new Date(2011, 1, 1, 9)
+					}, {
+						dataY : 73,
+						dataX : new Date(2011, 1, 1, 10)
+					}, {
+						dataY : 78,
+						dataX : new Date(2011, 1, 1, 11)
+					}, {
+						dataY : 41,
+						dataX : new Date(2011, 1, 1, 12)
+					} ];
+
+					function updateData() {
+						store.loadData(data2, false);
+					}
+					;
+
+					//add the context menu for the map
+					var menu = new BMap.ContextMenu();
+					var txtMenuItem = [
+							{
+								text : '放大',
+								callback : function() {
+									map.zoomIn();
+								}
+							},
+							{
+								text : '缩小',
+								callback : function() {
+									map.zoomOut();
+								}
+							},
+							{
+								text : '放置到最大级',
+								callback : function() {
+									map.setZoom(18);
+								}
+							},
+							{
+								text : '查看全国',
+								callback : function() {
+									map.setZoom(4);
+								}
+							},
+							{
+								text : '更新数据',
+								callback : function() {
+									if (!overlays.length) {
+										alert("没有选择目标");
+										return;
+									}
+									var data3 = [];
+									for ( var i = 0; i < 4; ++i) {
+										data3.push({
+											dataY : 100 - Math.floor(Math
+													.random() * 50) + 1,
+											dataX : Ext.Date.monthNames[i + 1]
+										});
+									}
+
+									store.loadData(data3, false);
+								}
+							}, {
+								text : '清除所选标记',
+								callback : function() {
+									clearAll();
+									overlays.length = 0;
+									map.clearOverlays();
+									overlays = [];
+								}
+							} ];
+
+					for ( var i = 0; i < txtMenuItem.length; i++) {
+						menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,
+								txtMenuItem[i].callback, 100));
+
+						menu.addSeparator();
+
+					}
+					map.addContextMenu(menu);
+
+				}// the end of the function argument of the OnReady funtion
+
+				);//the end of the OnReady function
+	</script>
+
+
+
+
+</body>
+</html>
