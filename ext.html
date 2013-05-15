@@ -300,6 +300,25 @@ li {
 					}));
 					//map.disableDragging();
 					
+					
+					/**
+					模拟鼠标点击
+        			function imitateClick(oElement) {
+                		var oEvent;
+                		if (document.createEventObject) { //For IE
+                    		oEvent = document.createEventObject();
+                    		//oEvent.clientX = iClientX;
+                    		//oEvent.clientY = iClientY;
+                    		oElement.fireEvent("onclick", oEvent);    
+                		} else {
+                    		oEvent = document.createEvent("MouseEvents");
+                    		oEvent.initMouseEvent("click", true, true, document.defaultView, 0, 0, 0 
+                                            		,0,0, false, false, false, false, 0, null); 
+                    		oElement.dispatchEvent(oEvent);
+                    		//alert("fireE");
+                    	}
+            		}
+					*/
 					function MouseDragDrawing(){
 						// 默认停靠位置和偏移量
   						this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
@@ -317,12 +336,32 @@ li {
   						// 添加文字说明
   						div.appendChild(document.createTextNode("鼠标画圈"));
   						// 设置样式
-  						div.style.cursor = "crosshair";
+  						div.style.cursor = "pointer";
   						div.style.border = "1px solid gray";
   						div.style.backgroundColor = "white";
 						// 绑定事件,点击一次放大两级
   						div.onclick = function(e){
-    						alert("开始圈选");
+    						//drawingManager.open();
+    						//drawingManager.setDrawingMode(BMAP_DRAWING_POLYGON);
+    						//setTimeout(function() {}, 5000);
+    						var map = document.getElementById("allmap");
+    						//alert(map.id);
+    						/**
+    						map.addEventListener("mousemove",function(e){
+    							setTimeout(function() {},5000);
+    							var points = [];
+    							for(var start = 0; start < 10; start++) {
+  									pointsPolygon[start] = new BMap.Point(e.point.lng,e.point.lat);
+  									alert("1");
+  									alert(e.point.lng);
+  									setTimeout(function() {},500);
+  									//alert("time out");
+								}
+								var polygonMouseDragging = new BMap.Polygon(pointsPolygon,
+									{strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+								map.addOverlay(polygonMouseDragging);
+    						});
+							*/
   						}
   						// 添加DOM元素到地图中
   						map.getContainer().appendChild(div);
@@ -333,8 +372,27 @@ li {
 					var myMouseDragDrawing = new MouseDragDrawing();
 					// 添加到地图当中
 					map.addControl(myMouseDragDrawing);
-						
-
+					/**
+					map.addEventListener("dragging",function(e){
+						alert("drag");
+					})
+					*/
+					
+					map.addEventListener("dragging",function(e){
+    							//setTimeout(function() {},5000);
+    							var pointsPolygon = [];
+    							for(var start = 0; start < 10; start++) {
+  									pointsPolygon[start] = new BMap.Point(e.point.lng,e.point.lat);
+  									//alert("1");
+  									//alert(e.point.lng);
+  									setTimeout(function() {},500);
+  									//alert("time out");
+								}
+								var polygonMouseDragging = new BMap.Polygon(pointsPolygon,
+									{strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+								map.addOverlay(polygonMouseDragging);
+    						});	
+					
 					$("getLastOverLay").onclick = function() {
 						if (overlays.length) {
 							alert(overlays[overlays.length - 1]);
